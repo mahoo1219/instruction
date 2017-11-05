@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import service.BookServie;
+import validator.BookValidator;
 
 import java.util.List;
 
@@ -43,8 +44,13 @@ public class BookController {
 
     @RequestMapping("/save-book")
     public String saveBook(@ModelAttribute Book book, BindingResult bindingResult,Model model) {
+        BookValidator bookValidator = new BookValidator();
+        bookValidator.validate(book,bindingResult);
         if (bindingResult.hasErrors()) {
             FieldError fieldError = bindingResult.getFieldError();
+            logger.debug("Code: " + fieldError.getCode() + ", field: " + fieldError.getField());
+            List<Category> categories = bookService.getAllCategories();
+            model.addAttribute("categories", categories);
             return "BookEditForm";
         }
         Category category = bookService.getCategory(book.getCategory().getId());

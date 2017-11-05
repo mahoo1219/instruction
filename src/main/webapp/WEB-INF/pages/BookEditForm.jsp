@@ -35,6 +35,9 @@
             <form:input id="isbn" path="isbn"/>
         </p>
         <p>
+            <form:errors path="price"/>
+        </p>
+        <p>
             <label for = "price" >Price: </label>
             <form:input path="price" id = "price"/>
         </p>

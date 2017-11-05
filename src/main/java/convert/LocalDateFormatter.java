@@ -24,6 +24,7 @@ public class LocalDateFormatter implements Formatter<LocalDate> {
         try {
             return LocalDate.parse(text, DateTimeFormatter.ofPattern(datePattern));
         } catch (DateTimeParseException e) {
+            System.out.print("GitHub");
             throw new IllegalArgumentException("invalid date format.Please use this pattern\"" + datePattern + "\"");
         }
     }
